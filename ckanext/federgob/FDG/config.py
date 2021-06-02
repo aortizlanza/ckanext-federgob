@@ -9,8 +9,8 @@
 import sys
 import codecs
 
-print '\nFill the following fields about the catalog.'
-print 'If you need info about each field please visit: https://github.com/jesusredondo/ckanext-federatedatosgob.\n'
+print ('\nFill the following fields about the catalog.')
+print ('If you need info about each field please visit: https://github.com/jesusredondo/ckanext-federatedatosgob.\n')
 
 # Ask for parameters 
 while True :

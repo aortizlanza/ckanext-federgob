@@ -129,12 +129,24 @@ for name in result:
 	strings_page_RDF = [line.replace(json_old, json_new) for line in strings_page_RDF]
 	strings_page_RDF = [line.replace(xls_old, xls_new) for line in strings_page_RDF]
 	lista = []
-	for line in strings_page_RDF:
-		
-		if "dct:mediaType" in line:
-			lista.append(line.replace(line, ""))
+	excluded = False
+
+	for index, line in enumerate(strings_page_RDF):
+		if "application/vnd.pc-axis" in line:
+			lista.append(line.replace("application/vnd.pc-axis", "text/pc-axis"))
 		else:
 			lista.append(line)
+			
+		if "dct:language" in line:
+			if "dcat:distribution" in strings_page_RDF[index+1]:
+				pass
+			else:
+				excluded = True
+					
+	strings_page_RDF = lista
+	strings_page_RDF = [re.sub("<dct:identifier>", uri, line)for line in strings_page_RDF]
+	strings_page_RDF = [re.sub("http:", "https:", line)for line in strings_page_RDF]
+	strings_page_RDF = [line.replace(dct, dcat) for line in strings_page_RDF]
 
 	strings_page_RDF = lista
 	strings_page_RDF = [re.sub("<dct:identifier>", uri, line)for line in strings_page_RDF]
